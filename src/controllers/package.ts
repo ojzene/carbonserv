@@ -43,7 +43,3 @@ export const createPackage: RequestHandler = (req, res, next) => {
         res.status(400).json({ message: "Error in Package", error });
     }
 };
-
-export const getPackages: RequestHandler = (req, res, next) => {
-
-}

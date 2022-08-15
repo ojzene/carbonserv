@@ -106,6 +106,20 @@ export const updateTracking: RequestHandler = (req, res, next) => {
 
 export const getTracking: RequestHandler = (req, res, next) => {}
 
-export const getSingleTracking: RequestHandler = (req, res, next) => {}
+export const getSingleTracking: RequestHandler = (req, res, next) => {
+    const packageId = (req.params as { packageId: string }).packageId;
+    const trackingId = (req.params as { trackingId: string }).trackingId;
+    Track.findOne({packageCode: packageId, trackingId: trackingId}, (err: any, trackingData: any) => {
+        if(err) res.status(400).json({ message: "Error in fetching Tracking Details", err });
+        res.status(200).json(trackingData);
+    }); 
+}
 
-export const deleteTracking: RequestHandler = (req, res, next) => {} 
+export const deleteTracking: RequestHandler = (req, res, next) => {
+    const packageId = (req.params as { packageId: string }).packageId;
+    const trackingId = (req.params as { trackingId: string }).trackingId;
+    Track.findOneAndDelete({packageCode : packageId, trackingId}, (err: any, result: any) => {
+        if(err) res.status(400).json({ message: "Error in deleting Tracking", err });
+        res.status(200).json({ message: "Tracking successfully deleted!", result });
+    });
+} 
