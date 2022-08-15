@@ -17,7 +17,7 @@ app.use('/packages', packageRoutes);
 
 app.use('/tracking', trackRoutes);
 
-app.get('/', (req, res) => {
+app.get('/', (req: any, res: any) => {
     res.send("Welcome to Package Tracking")
 })
 
