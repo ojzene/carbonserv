@@ -74,6 +74,9 @@ The necessary endpoints for this application is already attached to this reposit
 and can also be accessed via <a href="https://www.getpostman.com/collections/8d42a17d20747dba38fb" target="_blank"> https://www.getpostman.com/collections/8d42a17d20747dba38fb </a>
 
 
+Thanks :)
+
+
 
 
 
