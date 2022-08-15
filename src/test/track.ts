@@ -11,8 +11,7 @@ let should = chai.should();
 
 chai.use(chaiHttp);
 
-const API = 'https://carbonserv.herokuapp.com/';
-// const API = 'http://localhost:3001';
+const API = 'http://localhost:3001';
 
 describe('Tracks', () => {
     describe('/POST/:packageId track', () => {
