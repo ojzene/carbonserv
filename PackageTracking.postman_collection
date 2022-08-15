@@ -1,0 +1,131 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Package Tracking",
+		"_postman_id": "3793dc8e-f8af-0759-a1da-80bc46fd6509",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Package",
+			"request": {
+				"url": "localhost:3001/packages",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Cake\",\n\t\"description\": \"cake\",\n\t\"owner\": \"Kanmitted\",\n\t\"pickupAddress\" : [20.30, 10.10],\n    \"destinationAddress\": [34.89, 78.98]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Initiate Tracking",
+			"request": {
+				"url": "https://carbonserv.herokuapp.com/tracking/BUn2GcRc",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Update Tracking Status",
+			"request": {
+				"url": "localhost:3001/tracking/BUn2GcRc/fKdfD5NUII",
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"trackingStatus\": \"IN_TRANSIT\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteTracking Status",
+			"request": {
+				"url": "localhost:3001/tracking/KKmAXejT/0Nzo33QIjA",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Tracking",
+			"request": {
+				"url": "localhost:3001/packages",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"trackingStatus\": \"IN_TRANSIT\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Tracking By Package ID",
+			"request": {
+				"url": "localhost:3001/tracking/BUn2GcRc",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
