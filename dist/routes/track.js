@@ -5,6 +5,7 @@ const track_1 = require("../controllers/track");
 const router = (0, express_1.Router)();
 router.post('/:packageId', track_1.createTracking);
 router.get('/', track_1.getTracking);
+router.get('/:packageId', track_1.getTrackingByPackageId);
 router.get('/:packageId/:trackingId', track_1.getSingleTracking);
 router.patch('/:packageId/:trackingId', track_1.updateTracking);
 router.delete('/:packageId/:trackingId', track_1.deleteTracking);

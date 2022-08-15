@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createPackage = void 0;
+exports.getAllPackages = exports.createPackage = void 0;
 const packages_1 = require("../models/packages");
 const constants_1 = require("../utils/constants");
 const createPackage = (req, res, next) => {
@@ -53,3 +53,11 @@ const createPackage = (req, res, next) => {
     }
 };
 exports.createPackage = createPackage;
+const getAllPackages = (req, res, next) => {
+    packages_1.Package.find(function (err, packageData) {
+        if (err)
+            res.status(400).json({ message: "Error in fetching All Packages", err });
+        res.status(200).json(packageData);
+    });
+};
+exports.getAllPackages = getAllPackages;

@@ -43,3 +43,10 @@ export const createPackage: RequestHandler = (req, res, next) => {
         res.status(400).json({ message: "Error in Package", error });
     }
 };
+
+export const getAllPackages: RequestHandler = (req, res, next) => {
+    Package.find(function (err, packageData) {
+        if(err) res.status(400).json({ message: "Error in fetching All Packages", err });
+        res.status(200).json(packageData);
+    })
+}

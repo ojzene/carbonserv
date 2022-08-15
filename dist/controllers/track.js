@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteTracking = exports.getSingleTracking = exports.getTracking = exports.updateTracking = exports.createTracking = void 0;
+exports.deleteTracking = exports.getSingleTracking = exports.getTrackingByPackageId = exports.getTracking = exports.updateTracking = exports.createTracking = void 0;
 const packages_1 = require("../models/packages");
 const track_1 = require("../models/track");
 const constants_1 = require("../utils/constants");
@@ -23,7 +23,7 @@ const createTracking = (req, res, next) => {
             if (err) {
                 res.status(400).json({ message: "Error finding Package Info", err });
             }
-            else if (err === null && packageData) { // shows package exist
+            else if (err === null && packageData !== null) { // shows package exist
                 const checkTracking = yield track_1.Track.findOne({ packageId: packageId });
                 if (checkTracking && checkTracking !== null) {
                     res.status(400).json({ message: "PICK UP cannot be done more than once", checkTracking });
@@ -39,8 +39,9 @@ const createTracking = (req, res, next) => {
                         progress: ["PICKED_UP"]
                     });
                     const savedTracking = yield trackingInfo.save();
+                    console.log("savedTtracking:::", savedTracking);
                     if (savedTracking) {
-                        res.status(201).json({ message: 'Tracking successfully picked up', packageData, trackingInfo });
+                        res.status(200).json({ message: 'Package successfully picked up', packageData, trackingInfo });
                     }
                     else {
                         res.status(400).json({ message: "Error initiating Tracking", savedTracking });
@@ -48,7 +49,7 @@ const createTracking = (req, res, next) => {
                 }
             }
             else {
-                res.status(200).json({ message: "Tracking cannot be initiated. Package is invalid or doesn't exist" });
+                res.status(400).json({ message: "Package is invalid or doesn't exist" });
             }
         }));
     }
@@ -62,29 +63,30 @@ const updateTracking = (req, res, next) => {
         const packageId = req.params.packageId;
         const trackingId = req.params.trackingId;
         const trackingStatus = req.body.trackingStatus;
-        track_1.Track.findOne({ packageCode: packageId, trackingId: trackingId }, (err, trackingInfo) => __awaiter(void 0, void 0, void 0, function* () {
+        track_1.Track.findOne({ packageId: packageId, trackingId: trackingId }, (err, trackingInfo) => __awaiter(void 0, void 0, void 0, function* () {
             if (err) {
                 res.status(400).json({ message: "Error finding Tracking Info", err });
             }
-            if (trackingInfo) {
+            console.log("trackingInfo::", trackingInfo);
+            if (trackingInfo !== null) {
                 const currentStatus = trackingInfo.status;
                 const overallProgress = trackingInfo.progress;
                 if (constants_1.TRACKING_STATUS.includes(trackingStatus)) {
                     if (currentStatus === "PICKED_UP" && (trackingStatus === "PICKED_UP")) {
-                        res.status(400).json({ message: 'Package has already been picked up' });
+                        res.status(200).json({ message: 'Package has already been picked up', trackingStatus });
                     }
                     else if ((currentStatus !== "PICKED_UP") &&
                         (overallProgress.includes("PICKED_UP")) &&
                         (trackingStatus === "PICKED_UP")) {
-                        res.status(400).json({ message: "Package pick up cannot be done more than once" });
+                        res.status(200).json({ message: "Package pick up cannot be done more than once", trackingStatus });
                     }
                     else if (currentStatus === "DELIVERED" && (trackingInfo.deliveryDate !== null)) {
-                        res.status(400).json({ message: 'Package has already been delivered' });
+                        res.status(200).json({ message: 'Package has already been delivered', trackingStatus });
                     }
                     else {
                         if ((currentStatus === "PICKED_UP" && trackingStatus === "PICKED_UP") ||
                             (currentStatus === "DELIVERED" && trackingStatus === "DELIVERED")) {
-                            res.status(400).json({ message: `${currentStatus} cannot be done more than once` });
+                            res.status(200).json({ message: `${currentStatus} cannot be done more than once` });
                         }
                         else {
                             trackingInfo.status = trackingStatus;
@@ -117,8 +119,23 @@ const updateTracking = (req, res, next) => {
     }
 };
 exports.updateTracking = updateTracking;
-const getTracking = (req, res, next) => { };
+const getTracking = (req, res, next) => {
+    track_1.Track.find(function (err, trackingData) {
+        if (err)
+            res.status(400).json({ message: "Error in fetching All Tracking Details", err });
+        res.status(200).json(trackingData);
+    });
+};
 exports.getTracking = getTracking;
+const getTrackingByPackageId = (req, res, next) => {
+    const packageId = req.params.packageId;
+    track_1.Track.find({ packageCode: packageId }, (err, trackingData) => {
+        if (err)
+            res.status(400).json({ message: "Error in fetching Tracking Details", err });
+        res.status(200).json(trackingData);
+    });
+};
+exports.getTrackingByPackageId = getTrackingByPackageId;
 const getSingleTracking = (req, res, next) => {
     const packageId = req.params.packageId;
     const trackingId = req.params.trackingId;
