@@ -70,8 +70,7 @@ This application is currently hosted on Heroku server for this assessment purpos
 
 <a href="https://carbonserv.herokuapp.com/" target="_blank"> https://carbonserv.herokuapp.com/ </a>
 
-The necessary endpoints for this application is already attached to this repository as a postman collection named 
-and can also be accessed via <a href="https://www.getpostman.com/collections/8d42a17d20747dba38fb" target="_blank"> https://www.getpostman.com/collections/8d42a17d20747dba38fb </a>
+The necessary endpoints for this application is already attached to this repository as a postman collection, named "PackageTracking.postman_collection" and can be downloaded, can also be accessed via <a href="https://www.getpostman.com/collections/8d42a17d20747dba38fb" target="_blank"> https://www.getpostman.com/collections/8d42a17d20747dba38fb </a>
 
 
 Thanks :)
