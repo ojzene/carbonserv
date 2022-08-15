@@ -21,4 +21,5 @@ const packageSchema = new Schema<IPackage>({
 });
 
 const Package = model<IPackage>('Package', packageSchema);
+
 export { Package }

@@ -31,7 +31,6 @@ export const createTracking: RequestHandler = (req, res, next) => {
                     });
 
                     const savedTracking = await trackingInfo.save();
-                    console.log("savedTtracking:::", savedTracking)
                     if (savedTracking) {
                         res.status(200).json({ message: 'Package successfully picked up', packageData, trackingInfo });
                     } else {
@@ -58,7 +57,6 @@ export const updateTracking: RequestHandler = (req, res, next) => {
             if(err) {
                 res.status(400).json({ message: "Error finding Tracking Info", err });
             }
-            console.log("trackingInfo::", trackingInfo)
             if(trackingInfo !== null) {
                 const currentStatus = trackingInfo.status;
                 const overallProgress = trackingInfo.progress;

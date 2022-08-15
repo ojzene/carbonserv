@@ -1,4 +1,4 @@
-import { RequestHandler, response } from 'express';
+import { RequestHandler } from 'express';
 import { Package } from '../models/packages';
 
 import { TODAYS_DATE, GENERATE_STRING } from '../utils/constants';

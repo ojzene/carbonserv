@@ -3,8 +3,6 @@ process.env.NODE_ENV = 'test';
 let mongoose = require("mongoose");
 import { Track } from "../models/track";
 
-import { GENERATE_STRING } from '../utils/constants';
-
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 
@@ -13,14 +11,10 @@ let should = chai.should();
 
 chai.use(chaiHttp);
 
-const API = 'http://localhost:3001'
+const API = 'https://carbonserv.herokuapp.com/';
+// const API = 'http://localhost:3001';
 
 describe('Tracks', () => {
-    // beforeEach((done) => {
-    //     Track.deleteMany({}, (err) => { 
-    //        done();         
-    //     });        
-    // });
     describe('/POST/:packageId track', () => {
         it('it should not POST tracking with invalid packageId', (done) => {
               chai.request(API)
@@ -55,7 +49,7 @@ describe('Tracks', () => {
             }
             Track.findOne({status: track.trackingStatus}, (err, tracking) => {
                 chai.request(API)
-                    .patch('/tracking/BUn2GcRc/l8OycYniDt')
+                    .patch('/tracking/MzUR5td2/JZ5iMGApDo')
                     .send(track)
                     .end((err, res) => {
                         res.should.have.status(200);
@@ -72,7 +66,7 @@ describe('Tracks', () => {
             }
             Track.findOne({status: track.trackingStatus}, (err, tracking) => {
                 chai.request(API)
-                    .patch('/tracking/BUn2GcRc/l8OycYniDt')
+                    .patch('/tracking/MzUR5td2/JZ5iMGApDo')
                     .send(track)
                     .end((err, res) => {
                         res.should.have.status(200);
@@ -88,7 +82,7 @@ describe('Tracks', () => {
                 trackingStatus: "PICKED_UP"
             }
             chai.request(API)
-                .patch('/tracking/BUn2GcRc/l8OycYniDt')
+                .patch('/tracking/MzUR5td2/JZ5iMGApDo')
                 .send(track)
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -97,22 +91,5 @@ describe('Tracks', () => {
                     done();
                 });
         });
-        // it('it should not PATCH a track if trackingStatus has been DELIVERED before', (done) => {
-        //     let track = {
-        //         trackingStatus: "DELIVERED"
-        //     }
-        //     Track.findOne({status: track.trackingStatus}, (err, tracking) => {
-        //     chai.request(API)
-        //         .patch('/tracking/BUn2GcRc/l8OycYniDt')
-        //         .send(track)
-        //         .end((err, res) => {
-        //             res.should.have.status(400);
-        //             res.body.should.be.a('object');
-        //             // res.body.should.have.property('status').eql(tracking.status);
-        //             res.body.should.have.property('message').eql('Package has already been delivered');
-        //             done();
-        //         });
-        //     })
-        // });
     });
 });

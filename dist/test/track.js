@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 process.env.NODE_ENV = 'test';
 let mongoose = require("mongoose");
 const track_1 = require("../models/track");
-const constants_1 = require("../utils/constants");
 const chai_1 = __importDefault(require("chai"));
 const chai_http_1 = __importDefault(require("chai-http"));
 let server = require('../index');
@@ -28,20 +27,6 @@ describe('Tracks', () => {
                 res.should.have.status(400);
                 res.body.should.be.a('object');
                 res.body.should.have.property('message').eql("Package is invalid or doesn't exist");
-                done();
-            });
-        });
-        it('it should POST tracking with PICKED_UP Status with packageId field', (done) => {
-            let trackingId = (0, constants_1.GENERATE_STRING)(10);
-            chai_1.default.request(API)
-                .post('/tracking/' + trackingId)
-                .send()
-                .end((err, res) => {
-                res.should.have.status(201);
-                res.body.should.be.a('object');
-                res.body.should.have.property('message');
-                res.body.should.have.property('packageData');
-                res.body.should.have.property('message').eql('Package successfully picked up');
                 done();
             });
         });
@@ -67,7 +52,7 @@ describe('Tracks', () => {
             };
             track_1.Track.findOne({ status: track.trackingStatus }, (err, tracking) => {
                 chai_1.default.request(API)
-                    .patch('/tracking/BUn2GcRc/BnQVVfVGsG')
+                    .patch('/tracking/BUn2GcRc/l8OycYniDt')
                     .send(track)
                     .end((err, res) => {
                     res.should.have.status(200);
@@ -84,7 +69,7 @@ describe('Tracks', () => {
             };
             track_1.Track.findOne({ status: track.trackingStatus }, (err, tracking) => {
                 chai_1.default.request(API)
-                    .patch('/tracking/BUn2GcRc/BnQVVfVGsG')
+                    .patch('/tracking/BUn2GcRc/l8OycYniDt')
                     .send(track)
                     .end((err, res) => {
                     res.should.have.status(200);
@@ -100,7 +85,7 @@ describe('Tracks', () => {
                 trackingStatus: "PICKED_UP"
             };
             chai_1.default.request(API)
-                .patch('/tracking/BUn2GcRc/BnQVVfVGsG')
+                .patch('/tracking/BUn2GcRc/l8OycYniDt')
                 .send(track)
                 .end((err, res) => {
                 res.should.have.status(200);
@@ -115,7 +100,7 @@ describe('Tracks', () => {
         //     }
         //     Track.findOne({status: track.trackingStatus}, (err, tracking) => {
         //     chai.request(API)
-        //         .patch('/tracking/BUn2GcRc/BnQVVfVGsG')
+        //         .patch('/tracking/BUn2GcRc/l8OycYniDt')
         //         .send(track)
         //         .end((err, res) => {
         //             res.should.have.status(400);

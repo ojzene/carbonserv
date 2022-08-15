@@ -10,7 +10,7 @@
 		{
 			"name": "Create Package",
 			"request": {
-				"url": "localhost:3001/packages",
+				"url": "https://carbonserv.herokuapp.com/packages",
 				"method": "POST",
 				"header": [
 					{
@@ -30,7 +30,7 @@
 		{
 			"name": "Initiate Tracking",
 			"request": {
-				"url": "https://carbonserv.herokuapp.com/tracking/BUn2GcRc",
+				"url": "https://carbonserv.herokuapp.com/tracking/MzUR5td2",
 				"method": "POST",
 				"header": [
 					{
@@ -50,7 +50,7 @@
 		{
 			"name": "Update Tracking Status",
 			"request": {
-				"url": "localhost:3001/tracking/BUn2GcRc/fKdfD5NUII",
+				"url": "https://carbonserv.herokuapp.com/tracking/MzUR5td2/JZ5iMGApDo",
 				"method": "PATCH",
 				"header": [
 					{
@@ -90,7 +90,7 @@
 		{
 			"name": "Get All Tracking",
 			"request": {
-				"url": "localhost:3001/packages",
+				"url": "localhost:3001/tracking",
 				"method": "GET",
 				"header": [
 					{
@@ -122,6 +122,26 @@
 				"body": {
 					"mode": "raw",
 					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Packages",
+			"request": {
+				"url": "localhost:3001/packages",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"trackingStatus\": \"IN_TRANSIT\"\n}"
 				},
 				"description": ""
 			},
