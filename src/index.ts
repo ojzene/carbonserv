@@ -6,7 +6,7 @@ import { json } from 'body-parser';
 import packageRoutes from './routes/packages';
 import trackRoutes from './routes/track';
 
-connect('mongodb://localhost:27017/pcktracking');
+connect('mongodb+srv://kanmit:Notice2022@cluster0.d0487.mongodb.net/pcktracking');
 
 const app = express();
 app.use(cors());
